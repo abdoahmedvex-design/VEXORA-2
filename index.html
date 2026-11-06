@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E👑%3C/text%3E%3C/svg%3E">
+<title>VEXORA – Digital Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600&family=El+Messiri:wght@500;700&family=Cormorant+Garamond:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<header>
+  <div class="logo"><svg width="28" height="28" viewBox="0 0 32 32"><path d="M3 5h8l5 14 5-14h8L16 29z" fill="none" stroke="#D6B45B" stroke-width="2" stroke-linejoin="round"/><path d="M11 5l5 14 5-14" fill="#D6B45B" opacity=".35"/></svg>VEXORA</div>
+  <button class="ghost" id="lang">EN</button>
+  <button class="ghost" id="cartBtn">🛒 <span id="cc">0</span></button>
+</header>
+
+<div class="hero">
+  <h1 data-i="tag"></h1>
+  <p data-i="sub"></p>
+  <a href="#store"><button class="btn" data-i="explore"></button></a>
+</div>
+
+<section id="store">
+  <h2 data-i="products"></h2>
+  <div class="tabs" id="tabs"></div>
+  <div class="grid" id="grid"></div>
+  
+</section>
+
+<section>
+  <h2 data-i="why"></h2>
+  <div class="why">
+    <div><b data-i="w1"></b><p class="mut" data-i="w1d"></p></div>
+    <div><b data-i="w2"></b><p class="mut" data-i="w2d"></p></div>
+    <div><b data-i="w3"></b><p class="mut" data-i="w3d"></p></div>
+  </div>
+</section>
+
+<section>
+  <h2 data-i="track"></h2>
+  <input id="tn" data-ph="orderNo"><input id="tp" data-ph="phone" inputmode="tel">
+  <button class="btn" id="tb" data-i="trackBtn"></button>
+  <div id="tr" class="mut" style="margin-top:10px"></div>
+</section>
+
+<footer>© VEXORA – Digital Store · <span data-i="tag"></span><br><a href="https://wa.me/201004063941" target="_blank" rel="noopener" style="color:var(--gold)">WhatsApp</a> · <a href="#" id="adminLink" style="color:var(--mut)">Admin</a></footer>
+
+<div class="modal" id="pm"><div class="sheet" id="ps"></div></div>
+<div class="modal" id="cm"><div class="sheet" id="cs"></div></div>
+
+<script src="app.js"></script>
+<script src="extra.js"></script>
+</body>
+</html>
