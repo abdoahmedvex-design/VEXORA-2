@@ -3,8 +3,8 @@
   "VX-G1UHGI": {
    "h": "de8607c73ab380f4a039663990502816fb3e98fb55d3875b1e011f5808dbb53a",
    "c": 1794006833675,
-   "u": 1794006955853,
-   "st": "paid",
+   "u": 1794007203318,
+   "st": "processing",
    "hist": [
     {
      "f": null,
@@ -20,6 +20,13 @@
      "by": "abdoahmedvex-design",
      "src": "admin",
      "msg": "نشكرك لاختيار VEXORA"
+    },
+    {
+     "f": "paid",
+     "t": "processing",
+     "ts": 1794007203318,
+     "by": "abdoahmedvex-design",
+     "src": "admin"
     }
    ],
    "eta": "تم التسليم"
