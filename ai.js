@@ -85,28 +85,35 @@ async function aiRemote(q){
   }
 }
 function aiSend(q){
-  q=String(q).trim().slice(0,300);if(!q)return;
-  AI.h.push({r:"u",t:q});aiRender();
-  const log=g_("ailog");log.insertAdjacentHTML("beforeend",'<div class="mg a"><span class="dots"><i></i><i></i><i></i></span></div>');log.scrollTop=log.scrollHeight;
-  setTimeout(async()=>{let a;try{a=await aiAnswer(q)}catch(e){a={t:L==="ar"?"حصلت مشكلة عندي. كلّم الدعم على واتساب.":"Something went wrong. Please contact support on WhatsApp.",c:[{l:"💬 WhatsApp",a:"w:"+q}]}}AI.h.push({r:"a",t:a.t,c:a.c});aiSave();aiRender()},450);
+  q=String(q).trim().slice(0,300);
+  if(!q)return;
+
+  AI.h.push({r:"u",t:q});
+  aiRender();
+
+  const log=g_("ailog");
+  log.insertAdjacentHTML("beforeend",'<div class="mg a"><span class="dots"><i></i><i></i><i></i></span></div>');
+  log.scrollTop=log.scrollHeight;
+
+  setTimeout(async()=>{
+    let a;
+    try{
+      a=await aiAnswer(q);
+
+      if(a&&a.ai){
+        const remote=await aiRemote(q);
+        if(remote)a=remote;
+        else a={t:L==="ar"?"مش قادر أوصل للمساعد الذكي دلوقتي. حاول تاني بعد شوية.":"AI is temporarily unavailable. Please try again.",c:[]};
+      }
+    }catch(e){
+      a={
+        t:L==="ar"?"حصلت مشكلة عندي. كلّم الدعم على واتساب.":"Something went wrong. Please contact support on WhatsApp.",
+        c:[{l:"💬 WhatsApp",a:"w:"+q}]
+      };
+    }
+
+    AI.h.push({r:"a",t:a.t,c:a.c||[]});
+    aiSave();
+    aiRender();
+  },450);
 }
-function aiOpen(){
-  let a=g_("aim");
-  if(!a){a=document.createElement("div");a.className="modal";a.id="aim";
-    a.innerHTML='<div class="sheet"><div class="row" style="border:0;padding-top:0"><h2 style="margin:0">VEXORA AI ✦</h2><span><button class="ghost" id="aiclr"></button> <button class="ghost" data-x="aim">✕</button></span></div><div id="ailog"></div><div class="row" style="border:0;gap:8px"><input id="aiq" maxlength="300" style="margin:0"><button class="btn" id="ais">➤</button></div></div>';
-    document.body.appendChild(a);
-    g_("ais").onclick=()=>{const v=g_("aiq").value;g_("aiq").value="";aiSend(v)};
-    g_("aiq").onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();g_("ais").click()}};
-    g_("aiclr").onclick=()=>{AI.h=[];AI.pend=null;aiSave();aiWelcome();aiRender()};
-    a.addEventListener("click",e=>{const b=e.target.closest("[data-a]"),f=e.target.closest("[data-fb]");
-      if(b){const v=b.dataset.a;if(v.startsWith("p:")){a.classList.remove("on");openP(v.slice(2))}else if(v.startsWith("w:")){window.open(waUrl(v.slice(2)),"_blank","noopener")}else if(v.startsWith("q:")){aiSend(v.slice(2))}}
-      if(f){const q=f.dataset.fb.split(":");if(AI.h[q[0]]){AI.h[q[0]].f=+q[1];aiSave();aiRender()}}});
-  }
-  g_("aiclr").textContent=L==="ar"?"مسح":"Clear";g_("aiq").placeholder=L==="ar"?"اسألني عن أي منتج…":"Ask about any product…";
-  if(!AI.h.length)aiWelcome();
-  a.classList.add("on");aiRender();
-}
-(function(){const b=document.createElement("button");b.id="aiBtn";b.className="ghost";b.textContent="✦ VEXORA AI";b.onclick=aiOpen;document.body.appendChild(b)})();
-const io="IntersectionObserver" in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.1}):null;
-document.querySelectorAll("section,footer").forEach(s=>{s.classList.add("rv");io?io.observe(s):s.classList.add("in")});
-ui();
