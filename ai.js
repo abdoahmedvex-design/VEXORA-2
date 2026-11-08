@@ -36,7 +36,7 @@ function aiAnswer(raw){
   if(B&&!prods.length&&any(n,["ميزانيت","معايا","معي","budget","under","اقل من","حدود","جنيه","egp","لحد","اشتري","اطلب","رشح","اقترح","recommend"])){
     const cat=catOf(n),pool=vis.filter(p=>!cat||p.c===cat),res=pool.map(p=>{const k=p.pk.filter(k=>k[1]<=B).sort((a,b)=>b[1]-a[1])[0];return k?{p,k}:null}).filter(Boolean);
     if(res.length)return{t:X("بميزانية "+mny(B,1)+" تقدر تاخد:\n","With "+mny(B,0)+" you can get:\n")+res.map(x=>"• "+pnm(x.p,ar)+" — "+lbl(x.k,ar)+" ("+mny(x.k[1],ar)+")").join("\n"),c:res.slice(0,4).map(x=>chipP(x.p,ar))};
-    return{t:X("الميزانية دي أقل من أقل باقة عندنا. أقل سعر متاح: "+mny(Math.min(...pool.map(pmin)),1),"That's below our lowest package. Lowest available price: "+mny(Math.min(...pool.map(pmin)),0)),c:[]}}
+    return{t:X("معنديش إجابة مؤكدة على ده. لحظة وهحاول أجيبلك إجابة أدق.","I don't have a confirmed answer. Let me try to get a more accurate answer."),c:[],ai:true}
   if(prods.length===1){
     const p=prods[0],c=[chipP(p,ar)];
     if(p.off)return{t:X(pnm(p,1)+" مش معروض حالياً. كلّم الدعم لو محتاجه.",pnm(p,0)+" isn't listed right now. Contact support if you need it."),c:[hp]};
