@@ -274,27 +274,29 @@ function aiOpen(){
     const st=document.createElement("style");
     st.id="aiCoreStyle";
     st.textContent=`
-      #aiWrap{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.58);display:flex;align-items:flex-end;justify-content:center;padding:12px}
-      #aiPanel{width:min(100%,480px);height:min(650px,82dvh);background:#101010;color:#fff;border:1px solid rgba(214,180,91,.4);border-radius:20px;box-shadow:0 15px 60px #000;display:flex;flex-direction:column;overflow:hidden}
-      #aiHead{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(214,180,91,.2);color:#d6b45b;font-weight:700}
-      #aiClose{background:transparent;border:0;color:#fff;font-size:25px;padding:0 8px}
-      #ailog{flex:1;min-height:0;overflow:auto;padding:12px}
-      #aiForm{display:flex;gap:8px;padding:12px;border-top:1px solid rgba(214,180,91,.2)}
-      #aiInput{flex:1;min-width:0;background:#1b1b1b;color:#fff;border:1px solid rgba(214,180,91,.35);border-radius:12px;padding:12px;font-size:16px;outline:none}
-      #aiGo{background:#d6b45b;color:#111;border:0;border-radius:12px;padding:0 18px;font-weight:700}
-      #aiBtn{position:fixed;inset-inline-end:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:9997;background:rgba(12,12,12,.85);border:1px solid rgba(214,180,91,.5);color:#d6b45b;border-radius:50px;padding:13px 18px;font-weight:700;box-shadow:0 8px 28px rgba(0,0,0,.45),0 0 22px rgba(214,180,91,.2)}
-      #aiWrap .mg{width:fit-content;max-width:90%;padding:10px 14px;border-radius:18px;margin:8px 0;word-break:break-word;line-height:1.7;font-size:14px}
-      #aiWrap .mg.u{background:rgba(214,180,91,.18);border:1px solid rgba(214,180,91,.4);margin-inline-start:auto;border-end-end-radius:6px}
-      #aiWrap .mg.a{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-end-start-radius:6px}
-      #aiWrap .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-      #aiWrap .chips button{font-size:13px;padding:6px 12px;background:transparent;color:#d6b45b;border:1px solid rgba(214,180,91,.4);border-radius:20px}
-      #aiWrap .fb{display:flex;gap:6px;margin-top:6px}
-      #aiWrap .fb button{background:none;border:0;color:#fff;opacity:.55;padding:2px}
-      #aiWrap .fb button.on{opacity:1}
-      #aiWrap .dots i{display:inline-block;width:6px;height:6px;margin:0 2px;border-radius:50%;background:#d6b45b;animation:aiDot 1s infinite}
-      @keyframes aiDot{50%{opacity:.2}}
-      @media(min-width:600px){#aiWrap{align-items:flex-end;justify-content:flex-end;padding:20px}#aiPanel{height:min(650px,80vh)}}
-    `;
+      #aiBtn{
+  position:fixed;
+  right:18px;
+  bottom:calc(20px + env(safe-area-inset-bottom,0px));
+  z-index:9997;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#111;
+  border:1.5px solid #d6b45b;
+  color:#d6b45b;
+  font-size:19px;
+  font-weight:800;
+  animation:aiPulse 2s infinite ease-in-out;
+}
+@keyframes aiPulse{
+  0%,100%{transform:scale(1);box-shadow:0 0 10px #d6b45b55}
+  50%{transform:scale(1.08);box-shadow:0 0 25px #d6b45b99}
+}
     document.head.appendChild(st);
 
     wrap=document.createElement("div");
