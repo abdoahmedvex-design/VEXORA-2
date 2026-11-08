@@ -61,6 +61,29 @@ function aiRender(){
   log.scrollTop=log.scrollHeight;
 }
 function aiWelcome(){const ar=L==="ar";AI.h.push({r:"a",t:ar?"أهلاً بيك في VEXORA 👋 أنا مساعد المتجر. بجاوب على الأسعار والباقات والمقارنات من بيانات المتجر الحالية بس، وأي حاجة مش متأكد منها بحوّلك للدعم على واتساب.":"Welcome to VEXORA 👋 I'm the store assistant. I answer about prices, packages and comparisons from the store's current data only, and hand anything I'm unsure about to WhatsApp support.",c:ar?[{l:"سعر شدات ببجي",a:"q:سعر شدات ببجي"},{l:"قارن Xbox وPlayStation",a:"q:قارن بين Xbox وPlayStation"},{l:"ميزانيتي 500 جنيه",a:"q:ميزانيتي 500 جنيه أشتري إيه؟"},{l:"تتبع طلبي",a:"q:عايز أتتبع طلبي"}]:[{l:"PUBG UC prices",a:"q:PUBG UC prices"},{l:"Compare Xbox & PlayStation",a:"q:compare Xbox and PlayStation"},{l:"Budget 500 EGP",a:"q:I have a budget of 500 EGP"},{l:"Track my order",a:"q:track my order"}]})}
+const AIW=()=>String((D.ai||{}).url||"").replace(/\/+$/,"");
+
+async function aiRemote(q){
+  const url=AIW();
+  if(!url)return null;
+
+  const history=AI.h.slice(0,-1).slice(-6)
+    .map(x=>({r:x.r,t:x.t}));
+
+  try{
+    const res=await fetch(url+"/chat",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({m:q,h:history})
+    });
+
+    if(!res.ok)return null;
+    const data=await res.json();
+    return data.t?{t:data.t,c:[]}:null;
+  }catch(e){
+    return null;
+  }
+}
 function aiSend(q){
   q=String(q).trim().slice(0,300);if(!q)return;
   AI.h.push({r:"u",t:q});aiRender();
