@@ -360,7 +360,8 @@ function aiOpen(){
   const b=document.createElement("button");
   b.id="aiBtn";
   b.type="button";
-  b.textContent=L==="ar"?"VEXORA AI ✦":"VEXORA AI ✦";
+  b.textContent="AI";
+b.setAttribute("aria-label","Open AI Assistant");
   b.onclick=aiOpen;
   document.body.appendChild(b);
 })();
