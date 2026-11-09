@@ -69,6 +69,5 @@ document.addEventListener("click",e=>{
   const x=e.target.closest("[data-x]");if(x)$("#"+x.dataset.x).classList.remove("on");
   if(e.target.classList.contains("modal"))e.target.classList.remove("on");
 });
-$("#pl").onclick=()=>{
-  const waWindow=window.open("about:blank","_blank");L=L==="ar"?"en":"ar";ui()};
+$("#lang").onclick=()=>{L=L==="ar"?"en":"ar";ui()};
 $("#cartBtn").onclick=()=>openC();
