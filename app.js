@@ -55,7 +55,8 @@ function openC(msg,wa,txt){
   $("#cs").querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{cart[b.dataset.a].q++;save();ui();openC()});
   if(cart.length){
     $("#da").onclick=()=>{const k=$("#dc").value.trim().toUpperCase(),v=CODES[k];if(!v){disc=0;openC(t("badc"));return}disc={p:+(typeof v==="object"?v.p:v),c:typeof v==="object"?(v.c||""):"",code:k};if(!dsc()){const c=disc.c;disc=0;openC(t("onlyc")+" "+t("cat")[c]);return}openC()};
-    $("#pl").onclick=()=>{const n=$("#cn").value.trim(),ph=$("#cp").value.trim();
+    $("#pl").onclick=()=>{
+alert("الزر شغال");const n=$("#cn").value.trim(),ph=$("#cp").value.trim();
       if(n.length<2||!/^\+?\d{10,14}$/.test(ph)){openC(t("bad"));return}
       const no="VX-"+Math.random().toString(36).slice(2,8).toUpperCase();
       orders[no]={ph,total:tot,status:"Awaiting Payment",pay:"Unpaid",method:$("#cy").value,items:cart.length,t:Date.now(),it:cart.map(x=>{const l=line(x);return{id:x.id,n:l.p.n.ar,ne:l.p.n.en,l:lb(l.pk),le:lb(l.pk),q:x.q,pr:l.pk[1]}})};
