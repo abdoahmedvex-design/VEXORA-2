@@ -8,6 +8,10 @@ const P=[
 {id:1,c:"gaming",i:"🎯",n:{ar:"شحن PUBG Mobile UC",en:"PUBG Mobile UC"},pk:[["30 UC",25],["60 UC",50],["325 UC",250],["660 UC",500],["1,800 UC",1250],["3,850 UC",2500],["8,100 UC",5000],["16,200 UC",10000],["24,300 UC",15000],["32,400 UC",20000],["40,500 UC",25000],["48,600 UC",30000]],real:1,pid:1,eta:{ar:"5–15 دقيقة",en:"5–15 min"},dm:{ar:"شحن مباشر بالـ Player ID",en:"Direct top-up via Player ID"}},
 {id:11,c:"gaming",i:"🎯",n:{ar:"ببجي نيو ستيت (NC)",en:"PUBG New State (NC)"},pk:[["300 NC",75],[["1,500 NC + 80 NC مجاناً","1,500 NC + 80 NC free"],325],[["3,600 NC + 250 NC مجاناً","3,600 NC + 250 NC free"],780],[["9,300 NC + 930 NC مجاناً","9,300 NC + 930 NC free"],2000],[["15,000 NC + 1,800 NC مجاناً","15,000 NC + 1,800 NC free"],3200],[["30,000 NC + 5,000 NC مجاناً","30,000 NC + 5,000 NC free"],6370]],real:1,pid:1,eta:{ar:"5–15 دقيقة",en:"5–15 min"},dm:{ar:"شحن مباشر بالـ Player ID",en:"Direct top-up via Player ID"}},
 {id:2,c:"gift",i:"♨",n:{ar:"بطاقة Steam (ريال سعودي 🇸🇦)",en:"Steam Wallet (SAR 🇸🇦)"},pk:[["20 SAR",360],["50 SAR",890],["100 SAR",1780],["200 SAR",3550]],real:1,eta:{ar:"خلال دقائق",en:"Within minutes"},dm:{ar:"كود رقمي بالبريد/واتساب",en:"Digital code"}},
+
+
+
+
 {id:7,c:"gift",i:"🎮",n:{ar:"بطاقة PlayStation",en:"PlayStation"},pk:[["$5",330],["$10",735],["$20",1445],["$50",3645],[["$10 (السعر الثاني)","$10 (2nd price)"],675],[["$20 (السعر الثاني)","$20 (2nd price)"],1330],["$100",7235]],real:1,eta:{ar:"خلال دقائق",en:"Within minutes"},dm:{ar:"كود رقمي",en:"Digital code"}},
 {id:8,c:"gift",i:"❎",n:{ar:"Xbox – بطاقات و Game Pass",en:"Xbox Cards & Game Pass"},pk:[[["50 ريال سعودي","SAR 50"],825],[["100 ريال سعودي","SAR 100"],1645],[["200 ريال سعودي","SAR 200"],3295],[["300 ريال سعودي","SAR 300"],4945],[["Game Pass 3 شهور","Game Pass 3 months"],1875],[["Game Pass 6 شهور","Game Pass 6 months"],3750],[["Ultimate شهر","Ultimate 1 month"],880]],real:1,eta:{ar:"خلال دقائق",en:"Within minutes"},dm:{ar:"كود رقمي",en:"Digital code"}},
 {id:9,c:"subs",i:"🎬",n:{ar:"OSN Plus",en:"OSN Plus"},pk:[[["شهر بإعلانات","1 month with ads"],90],[["سنة بإعلانات","1 year with ads"],880],[["Standard شهر","Standard 1 month"],145],[["Standard سنة","Standard 1 year"],1465],[["Premium شهر","Premium 1 month"],175],[["Premium سنة","Premium 1 year"],1955]],real:1,eta:{ar:"خلال دقائق",en:"Within minutes"},dm:{ar:"كود رقمي",en:"Digital code"}},
@@ -39,7 +43,7 @@ function openP(id){
       const key=p.id+"-"+sel+"-"+pid,ex=cart.find(x=>x.key===key);ex?ex.q++:cart.push({key,id:p.id,k:sel,pid,q:1});save();ui();$("#pm").classList.remove("on");const cb=$("#cartBtn");cb.classList.remove("bump");void cb.offsetWidth;cb.classList.add("bump")};
   };draw();$("#pm").classList.add("on");
 }
-const lb=k=>Array.isArray(k[0])?k[0][L==="ar"?0:1]:k[0];const line=x=>{const p=P.find(a=>a.id===x.id);return{p,pk:p.pk[x.k]}};
+const normPh=s=>String(s).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[\s\-().]/g,"");const lbx=(k,ar)=>Array.isArray(k[0])?k[0][ar?0:1]:k[0];const lb=k=>Array.isArray(k[0])?k[0][L==="ar"?0:1]:k[0];const line=x=>{const p=P.find(a=>a.id===x.id);return{p,pk:p.pk[x.k]}};
 const sub=()=>cart.reduce((a,x)=>a+line(x).pk[1]*x.q,0);
 const dsc=()=>disc?Math.round(cart.reduce((a,x)=>{const l=line(x);return a+(!disc.c||l.p.c===disc.c?l.pk[1]*x.q:0)},0)*disc.p/100):0;
 function openC(msg,wa,txt){
@@ -55,26 +59,13 @@ function openC(msg,wa,txt){
   $("#cs").querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{cart[b.dataset.a].q++;save();ui();openC()});
   if(cart.length){
     $("#da").onclick=()=>{const k=$("#dc").value.trim().toUpperCase(),v=CODES[k];if(!v){disc=0;openC(t("badc"));return}disc={p:+(typeof v==="object"?v.p:v),c:typeof v==="object"?(v.c||""):"",code:k};if(!dsc()){const c=disc.c;disc=0;openC(t("onlyc")+" "+t("cat")[c]);return}openC()};
-    $("#pl").onclick=()=>{
-alert("الزر شغال");const n=$("#cn").value.trim(),ph=$("#cp").value.trim();
-      if(n.length<2||!/^\+?\d{10,14}$/.test(ph)){openC(t("bad"));return}
+    $("#pl").onclick=()=>{const n=$("#cn").value.trim(),ph=normPh($("#cp").value),bn=n.length<2,bp=!/^\+?\d{10,14}$/.test(ph);
+      $("#cn").style.borderColor="";$("#cp").style.borderColor="";
+      if(bn||bp){if(bn)$("#cn").style.borderColor="#c55";if(bp)$("#cp").style.borderColor="#c55";let e=$("#cerr");if(!e){e=document.createElement("div");e.id="cerr";e.className="note";$("#pl").before(e)}e.textContent=t("bad");e.scrollIntoView({block:"center",behavior:"smooth"});return}
       const no="VX-"+Math.random().toString(36).slice(2,8).toUpperCase();
-      orders[no]={ph,total:tot,status:"Awaiting Payment",pay:"Unpaid",method:$("#cy").value,items:cart.length,t:Date.now(),it:cart.map(x=>{const l=line(x);return{id:x.id,n:l.p.n.ar,ne:l.p.n.en,l:lb(l.pk),le:lb(l.pk),q:x.q,pr:l.pk[1]}})};
+      orders[no]={ph,total:tot,status:"Awaiting Payment",pay:"Unpaid",method:$("#cy").value,items:cart.length,t:Date.now(),it:cart.map(x=>{const l=line(x);return{id:x.id,n:l.p.n.ar,ne:l.p.n.en,l:lbx(l.pk,1),le:lbx(l.pk,0),q:x.q,pr:l.pk[1]}})};
       const txt=(L==="ar"?"مرحباً VEXORA، أريد تأكيد طلبي رقم ":"Hello VEXORA, I'd like to confirm my order ")+no+":\n"+cart.map(x=>{const l=line(x);return "• "+l.p.n[L]+" – "+lb(l.pk)+(x.pid?" (ID: "+x.pid+")":"")+" × "+x.q}).join("\n")+(dd?"\n"+t("dsc")+": −"+egp(dd)+" ("+disc.code+")":"")+"\n"+t("total")+": "+egp(tot)+"\n"+t("name")+": "+n+"\n"+t("phone")+": "+ph+"\n"+t("pay")+": "+$("#cy").value;
-      $("#tn").value=no;
-$("#tp").value=ph;
-
-const url=waUrl(txt);
-
-// تجهيز زر واتساب قبل تحديث الواجهة
-openC(t("done")+" "+no+" — "+t("payn"),url,txt);
-
-// تفريغ السلة بعد تسجيل الطلب
-cart=[];
-disc=0;
-save();
-ui();
-};
+      $("#tn").value=no;$("#tp").value=ph;cart=[];disc=0;save();ui();openC(t("done")+" "+no+" — "+t("payn"),waUrl(txt),txt)};
   }
 }
 document.addEventListener("click",e=>{
@@ -85,3 +76,4 @@ document.addEventListener("click",e=>{
 });
 $("#lang").onclick=()=>{L=L==="ar"?"en":"ar";ui()};
 $("#cartBtn").onclick=()=>openC();
+
