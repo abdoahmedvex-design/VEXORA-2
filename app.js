@@ -65,20 +65,14 @@ $("#tp").value=ph;
 
 const url=waUrl(txt);
 
+// تجهيز زر واتساب قبل تحديث الواجهة
+openC(t("done")+" "+no+" — "+t("payn"),url,txt);
+
+// تفريغ السلة بعد تسجيل الطلب
 cart=[];
 disc=0;
 save();
 ui();
-
-openC(t("done")+" "+no+" — "+t("payn"),url,txt);
-
-const waLink=document.getElementById("wab");
-if(waLink){
-  waLink.href=url;
-  waLink.target="_blank";
-  waLink.rel="noopener";
-}
-window.open(url,"_blank");
 };
   }
 }
