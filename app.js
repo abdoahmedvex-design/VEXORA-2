@@ -60,7 +60,26 @@ function openC(msg,wa,txt){
       const no="VX-"+Math.random().toString(36).slice(2,8).toUpperCase();
       orders[no]={ph,total:tot,status:"Awaiting Payment",pay:"Unpaid",method:$("#cy").value,items:cart.length,t:Date.now(),it:cart.map(x=>{const l=line(x);return{id:x.id,n:l.p.n.ar,ne:l.p.n.en,l:lbl(l.pk,1),le:lbl(l.pk,0),q:x.q,pr:l.pk[1]}})};
       const txt=(L==="ar"?"مرحباً VEXORA، أريد تأكيد طلبي رقم ":"Hello VEXORA, I'd like to confirm my order ")+no+":\n"+cart.map(x=>{const l=line(x);return "• "+l.p.n[L]+" – "+lb(l.pk)+(x.pid?" (ID: "+x.pid+")":"")+" × "+x.q}).join("\n")+(dd?"\n"+t("dsc")+": −"+egp(dd)+" ("+disc.code+")":"")+"\n"+t("total")+": "+egp(tot)+"\n"+t("name")+": "+n+"\n"+t("phone")+": "+ph+"\n"+t("pay")+": "+$("#cy").value;
-      $("#tn").value=no;$("#tp").value=ph;cart=[];disc=0;save();ui();openC(t("done")+" "+no+" — "+t("payn"),waUrl(txt),txt)};
+      $("#tn").value=no;
+$("#tp").value=ph;
+
+const url=waUrl(txt);
+
+cart=[];
+disc=0;
+save();
+ui();
+
+openC(t("done")+" "+no+" — "+t("payn"),url,txt);
+
+const waLink=document.getElementById("wab");
+if(waLink){
+  waLink.href=url;
+  waLink.target="_blank";
+  waLink.rel="noopener";
+}
+window.open(url,"_blank");
+};
   }
 }
 document.addEventListener("click",e=>{
